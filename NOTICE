@@ -1,0 +1,22 @@
+UniFlow-RS anonymous source-isolated release
+
+The UniFlow-RS-specific training, task adaptation, target construction,
+evaluation, and checkpoint-compatibility code in this distribution is released
+under the Apache License, Version 2.0.
+
+The files under uniflow_rs/_compat/vendor/flux2 are derived from the official
+Black Forest Labs FLUX.2 inference repository:
+
+  https://github.com/black-forest-labs/flux2
+  revision 50fe5162777813d869182b139e83b10743caef15
+
+Those files and the FLUX.2 Klein Base 4B model are distributed under the
+Apache License, Version 2.0. Local changes are limited to optional activation
+checkpointing hooks and the UniFlow-RS three-stream input adapter; modified
+files identify those changes in their headers.
+
+Qwen model files are not redistributed by this release. Users obtain them
+from their original provider and remain responsible for their terms.
+
+Dataset archives and annotations are not redistributed. Each benchmark keeps
+its original license and terms of use.

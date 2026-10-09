@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+._*
+.idea/
+.venv/
+
+/checkpoints/*
+/data/*
+/outputs/*
+/pretrained/*
+
+!checkpoints/.gitkeep
+!data/.gitkeep
+!outputs/.gitkeep
+!pretrained/.gitkeep
