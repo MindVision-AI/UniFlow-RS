@@ -1,0 +1,35 @@
+{
+  "best_palette_rgb": [
+    [0, 0, 0],
+    [0, 0, 0],
+    [255, 0, 0],
+    [166, 0, 0],
+    [255, 255, 0],
+    [255, 0, 255],
+    [128, 0, 255],
+    [166, 79, 50],
+    [128, 128, 128],
+    [166, 166, 0],
+    [32, 134, 134],
+    [166, 0, 166],
+    [255, 128, 0],
+    [0, 255, 128],
+    [255, 128, 128],
+    [255, 255, 255],
+    [128, 255, 128],
+    [0, 32, 159],
+    [0, 255, 255],
+    [128, 128, 255],
+    [96, 192, 32],
+    [192, 64, 0]
+  ],
+  "protocol": {
+    "name": "dior_palette_hybrid_toll_calibrated",
+    "calibration_split": "official_val",
+    "calibration_positive_images": 299,
+    "candidate_count": 96,
+    "expressway_toll_station_before": "#00A6A6",
+    "expressway_toll_station_after": "#208686",
+    "selection_rule": "maximize target IoU, then other-present-class mIoU and background IoU"
+  }
+}
