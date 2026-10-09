@@ -1,0 +1,470 @@
+release_metadata:
+  role: manuscript_declared_training_recipe
+  warning: Fixed-budget training without validation or best-checkpoint selection.
+    Use the final scheduled checkpoint. This is not checkpoint provenance.
+  global_batch_size: 32
+  reference_hardware: 4 x NVIDIA RTX 4090
+data:
+  resolution: 512
+  augment: true
+  building:
+    root: data/whu_building
+    dataset_format: coco_polygons
+    validation_protocol: {mode: disabled}
+    train_splits:
+    - train
+    train_split: train
+    val_split: null
+    test_split: test
+    annotation_dir: annotation
+    category_id: 1
+    resolution: 512
+    spatial_mode: resize
+  change:
+    resolution: 512
+    samples_per_epoch: 4000
+    source_sampling_weights:
+      whu_cd: 2
+      levir_cd_plus: 1
+    sources:
+      whu_cd:
+        dataset: whu
+        validation_protocol: {mode: disabled}
+        root: data/whu_cd_raw
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: test
+        before_year: '2012'
+        after_year: '2016'
+        target_source: official
+      levir_cd_plus:
+        dataset: levir_cd_plus
+        validation_protocol: {mode: disabled}
+        root: data/LEVIR-CD+
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: test
+        validation_fraction: 0.0
+        split_seed: 12345
+  semantic:
+    root: data/LoveDA
+    validation_protocol: {mode: disabled}
+    train_splits:
+    - Train
+    train_split: Train
+    val_split: null
+    test_split: Val
+    domains:
+    - Urban
+    - Rural
+    source_size: 1024
+    resolution: 512
+    code_palette: canonical_v2
+  height:
+    resolution: 512
+    max_height_meters: 200.0
+    height_codec: log1p
+    samples_per_epoch: 4000
+    source_sampling_weights:
+      potsdam: 1
+      dfc23_track2: 1
+    sources:
+      potsdam:
+        root: data/potsdam_height_512_tiles
+        validation_protocol: {mode: disabled}
+        dataset_format: potsdam
+        prompt_key: height_optical
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: test
+        source_size: 6000
+        image_dir: images
+        height_dir: heights
+        source_max_height_meters: 25.5
+        train_tiles:
+        - '2_10'
+        - '2_11'
+        - '2_12'
+        - '3_10'
+        - '3_11'
+        - '3_12'
+        - '4_10'
+        - '4_11'
+        - '4_12'
+        - '5_10'
+        - '5_11'
+        - '5_12'
+        - '6_7'
+        - '6_8'
+        - '6_9'
+        - '6_10'
+        - '6_11'
+        - '6_12'
+        - '7_7'
+        - '7_8'
+        - '7_9'
+        - '7_10'
+        - '7_11'
+        - '7_12'
+        test_tiles:
+        - '2_13'
+        - '2_14'
+        - '3_13'
+        - '3_14'
+        - '4_13'
+        - '4_14'
+        - '4_15'
+        - '5_13'
+        - '5_14'
+        - '5_15'
+        - '6_13'
+        - '6_14'
+        - '6_15'
+        - '7_13'
+      dfc23_track2:
+        root: data/dfc23_track2_512
+        validation_protocol: {mode: disabled}
+        dataset_format: dfc23_track2
+        train_splits:
+        - train
+        train_input_modality: rgb_or_sar
+        val_input_modality: rgb_or_sar
+        test_input_modality: rgb_or_sar
+        rgb_prompt_key: height_optical
+        sar_prompt_key: height_sar
+        train_split: train
+        val_split: null
+        test_split: test
+        manifest: splits.json
+  sar_building:
+    root: data/spacenet6_sar_512
+    validation_protocol: {mode: disabled}
+    train_split: train
+    val_split: null
+    test_split: test
+    resolution: 512
+    manifest: splits.json
+    train_input_modality: rgb_or_sar
+    val_input_modality: rgb_or_sar
+    test_input_modality: rgb_or_sar
+    rgb_prompt_key: sar_building_optical
+    sar_prompt_key: sar_building_sar
+    augment: false
+    train_splits:
+    - train
+  sar_semantic:
+    resolution: 512
+    code_palette: canonical_v2
+    samples_per_epoch: 9000
+    source_sampling_weights:
+      openearthmap_sar: 2
+      openearthmap_optical: 1
+    augment: true
+    sources:
+      openearthmap_sar:
+        dataset_format: openearthmap_sar
+        validation_protocol: {mode: disabled}
+        root: data/OpenEarthMap-SAR
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: test
+        trainval_dir: dfc25_track1_trainval
+        source_size: 1024
+        train_input_modality: rgb_or_sar
+        train_input_modality_by_split:
+          train: rgb_or_sar
+          val: sar
+          test: sar
+        val_input_modality: sar
+        test_input_modality: sar
+        rgb_prompt_key: sar_semantic_optical
+        sar_prompt_key: sar_semantic_sar
+      openearthmap_optical:
+        dataset_format: openearthmap_optical
+        validation_protocol: {mode: disabled}
+        root: data/OpenEarthMap
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: val
+        prompt_key: sar_semantic_optical
+  sar_change:
+    root: data/UrbanSARFloods
+    validation_protocol: {mode: disabled}
+    official_test_root: data/UrbanSARFloods/testing_case_orig
+    train_splits:
+    - train
+    train_split: train
+    val_split: null
+    test_split: test
+    resolution: 512
+    normalization_file: data_norm.txt
+    augment: true
+    balance_categories: true
+  referring:
+    resolution: 512
+    samples_per_epoch: 16000
+    source_sampling_weights:
+      rrsisd: 1
+      lasers: 1
+    augment: false
+    sources:
+      rrsisd:
+        root: data/rrsisd_512
+        validation_protocol: {mode: disabled}
+        train_splits:
+        - train
+        train_split: train
+        val_split: null
+        test_split: test
+        manifest: splits.json
+        prompt_embeddings: text_embeddings_flux2_klein
+      lasers:
+        root: data/lasers_512
+        validation_protocol: {mode: disabled}
+        train_split: train
+        val_split: null
+        test_split: test
+        manifest: splits.json
+        prompt_embeddings: text_embeddings_flux2_klein
+        train_splits:
+        - train
+  detection:
+    dataset_format: dior
+    validation_protocol: {mode: disabled}
+    target_mode: palette
+    code_palette: dior_detection_v1
+    code_palette_file: assets/dior_palette_hybrid_toll_calibrated.json
+    root: data/dior_r_512
+    train_splits:
+    - train
+    train_split: train
+    val_split: null
+    test_split: test
+    resolution: 512
+    manifest: splits.json
+    prompt_key: detection
+    augment: true
+    evaluation_query_mode: all
+pretrained:
+  local_dir: pretrained/flux2-klein-base-4b
+  flux_repo_id: black-forest-labs/FLUX.2-klein-base-4B
+  autoencoder_repo_id: black-forest-labs/FLUX.2-dev
+  transformer_filename: flux-2-klein-base-4b.safetensors
+  autoencoder_filename: ae.safetensors
+  qwen_model_path: pretrained/qwen3-4b-fp8
+  qwen_model_id: Qwen/Qwen3-4B-FP8
+  text_model_dir: null
+model:
+  architecture: FLUX.2-Klein-Base-4B-MMDiT
+  backbone: flux2-klein-base-4b
+  variant: uniflow-rs-flux2-klein-base-4b-multitask
+  train_mode: lora
+  lora_rank: 32
+  lora_alpha: 32.0
+  lora_dropout: 0.0
+  gradient_checkpointing: true
+  text_sequence_length: 128
+  prompts:
+    building: Generate a binary building-footprint map for the optical aerial image.
+      Buildings are white; background is black.
+    change: Generate a binary building-change map for the before and after optical
+      aerial images. Changed buildings are white; unchanged areas are black.
+    semantic: 'Generate a per-pixel LoveDA semantic map for the optical aerial image,
+      using this canonical_v2 RGB color mapping: background <0,0,0>; building <222,31,7>;
+      road <255,255,255>; water <0,69,255>; barren <255,0,255>; forest <34,97,38>;
+      agriculture <0,255,255>.'
+    height_optical: Generate a dense height map for the optical aerial image. Encode
+      log1p height from 0 to 200 meters as grayscale, from black to white.
+    height_sar: Generate a dense height map for the synthetic aperture radar image.
+      Encode log1p height from 0 to 200 meters as grayscale, from black to white.
+    sar_building_optical: Generate a binary building-footprint map for the optical
+      aerial image. Buildings are white; background is black.
+    sar_building_sar: Generate a binary building-footprint map for the synthetic aperture
+      radar image. Buildings are white; background is black.
+    sar_semantic_sar: 'Generate an OpenEarthMap SAR semantic map using canonical_v2 colors. RGB colors: background black #000000; bareland magenta #FF00FF; rangeland
+      bright green #00FF24; developed space gray #949494; road white #FFFFFF; tree
+      dark green #226126; water blue #0045FF; agriculture land cyan #00FFFF; building
+      red #DE1F07.'
+    sar_semantic_optical: 'Generate an OpenEarthMap optical semantic map using canonical_v2 colors. RGB colors: background black #000000; bareland magenta #FF00FF; rangeland
+      bright green #00FF24; developed space gray #949494; road white #FFFFFF; tree
+      dark green #226126; water blue #0045FF; agriculture land cyan #00FFFF; building
+      red #DE1F07.'
+    sar_change: 'Generate a per-pixel flood-change map for the pre-event and co-event
+      synthetic aperture radar images, using this RGB color mapping: non-flood <0,0,0>;
+      open-area flood <0,0,255>; urban flood <255,0,0>.'
+    detection: Generate a class-coded mask of all DIOR-R object classes.
+    detection_airplane: Segment all airplanes as white on black.
+    detection_airport: Segment all airports as white on black.
+    detection_baseballfield: Segment all baseball fields as white on black.
+    detection_basketballcourt: Segment all basketball courts as white on black.
+    detection_bridge: Segment all bridges as white on black.
+    detection_chimney: Segment all chimneys as white on black.
+    detection_dam: Segment all dams as white on black.
+    detection_expressway_service_area: Segment all expressway service areas as white
+      on black.
+    detection_expressway_toll_station: Segment all expressway toll stations as white
+      on black.
+    detection_golffield: Segment all golf fields as white on black.
+    detection_groundtrackfield: Segment all ground track fields as white on black.
+    detection_harbor: Segment all harbors as white on black.
+    detection_overpass: Segment all overpasses as white on black.
+    detection_ship: Segment all ships as white on black.
+    detection_stadium: Segment all stadiums as white on black.
+    detection_storagetank: Segment all storage tanks as white on black.
+    detection_tenniscourt: Segment all tennis courts as white on black.
+    detection_trainstation: Segment all train stations as white on black.
+    detection_vehicle: Segment all vehicles as white on black.
+    detection_windmill: Segment all windmills as white on black.
+training:
+  active_tasks:
+  - building
+  - change
+  - semantic
+  - height
+  - sar_building
+  - sar_semantic
+  - sar_change
+  - referring
+  - detection
+  task_sampling_weights:
+    building: 2
+    change: 3
+    semantic: 2
+    height: 1
+    sar_building: 1
+    sar_semantic: 7
+    sar_change: 2
+    referring: 4
+    detection: 4
+  pair_modalities_in_batch: true
+  epochs: 300
+  max_optimizer_steps: 60000
+  batch_size_per_gpu: 4
+  gradient_accumulation_steps: 2
+  num_workers: 8
+  mixed_precision: bf16
+  allow_tf32: true
+  seed: 0
+  # No validation, no test-based selection, no best.pt selection.
+  validation_enabled: false
+  learning_rate: 5.0e-05
+  weight_decay: 0.01
+  lr_milestones:
+  - 20000
+  - 35000
+  - 50000
+  lr_gamma: 0.5
+  max_grad_norm: 1.0
+  save_every_epochs: 1
+  max_checkpoints: 3
+  resume: null
+flow:
+  source: after
+  source_by_task:
+    building: after
+    change: latent_difference
+    semantic: after
+    height: after
+    sar_building: after
+    sar_semantic: after
+    sar_change: latent_difference
+    referring: after
+    detection: after
+  condition_mode: before_after
+  condition_by_task:
+    building: single_after
+    change: before_after
+    semantic: single_after
+    height: single_after
+    sar_building: single_after
+    sar_semantic: single_after
+    sar_change: before_after
+    referring: single_after
+    detection: single_after
+  latent_difference_scale: 1.0
+  beta_alpha: 2.5
+  beta_beta: 1.0
+  timestep_sampling:
+    mode: task_adaptive_progress
+    task_adaptive_progress:
+      modalities_by_task:
+        building:
+        - rgb
+        change:
+        - rgb
+        semantic:
+        - rgb
+        height:
+        - rgb
+        - sar
+        sar_building:
+        - rgb
+        - sar
+        sar_semantic:
+        - rgb
+        - sar
+        sar_change:
+        - sar
+        referring:
+        - rgb
+        detection:
+        - rgb
+      num_bins: 10
+      beta_fast: 0.9
+      beta_slow: 0.99
+      gamma_difficulty: 1.0
+      gamma_progress: 1.0
+      progress_mode: absolute
+      progress_floor: 0.1
+      progress_clip: 1.0
+      uniform_mix: 0.2
+      warmup_ratio: 0.1
+      epsilon: 1.0e-06
+inference:
+  num_steps: 2
+  mask_threshold: 0.5
+  height_postprocess:
+    enabled: true
+    ground_threshold_meters: 0.2
+    min_component_area: 0
+    median_kernel: 1
+    component_median_weight: 0.0
+  detection_postprocess:
+    stitch_full_images: false
+    mask_threshold: 0.5
+    palette_temperature: 0.1
+    min_component_area: 64
+    score_threshold: 0.05
+    opening_kernel: 0
+    nms_iou_threshold: 0.1
+  sar_semantic_sliding_window:
+    enabled: true
+    stride: 256
+    palette_temperature: 0.1
+  semantic_postprocess:
+    enabled: true
+    max_color_distance: 0.15
+    min_color_margin: 0.15
+    barren_filter:
+      enabled: false
+      max_color_distance: 0.08
+      min_color_margin: 0.25
+    majority_kernel_size: 3
+    majority_min_count: 5
+    majority_iterations: 1
+    min_island_area: 16
+    island_min_uncertain_fraction: 0.0
+    island_surround_min_fraction: 0.6
+output:
+  root: outputs/training
+  run_name: manuscript_60k_tmas
