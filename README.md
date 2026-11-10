@@ -3,7 +3,20 @@
 <h3 align="center">Unifying Heterogeneous Remote Sensing Tasks<br>with a Shared Generative Prediction Process</h3>
 
 <p align="center">
-  <b>Anonymous submission · Double-blind review</b>
+  <a href="https://openreview.net/profile?id=~Jianlong_He1">Jianlong He</a><sup>1</sup>,
+  <a href="https://openreview.net/profile?id=~Liang_Liao3">Liang Liao</a><sup>2</sup>,
+  <a href="https://openreview.net/profile?id=~Jing_Xiao6">Jing Xiao</a><sup>1</sup>,
+  <a href="https://openreview.net/profile?id=~Chaofeng_Chen1">Chaofeng Chen</a><sup>1</sup>,
+  <a href="https://openreview.net/profile?id=~Gui-Song_Xia3">Gui-Song Xia</a><sup>1</sup>
+</p>
+
+<p align="center">
+  <sup>1</sup>School of Artificial Intelligence, Wuhan University<br>
+  <sup>2</sup>Hangzhou Institute of Technology, Xidian University
+</p>
+
+<p align="center">
+  <a href="https://elaxegan.github.io/uniflow-rs/"><b>Project Page</b></a>
 </p>
 
 <p align="center">
@@ -44,10 +57,10 @@ for evaluation settings and commands.
 
 ## Models
 
-Download the **[UniFlow-RS checkpoint (anonymous download)](https://osf.io/jp4vy/overview?view_only=a6c0fdba8fa446049063c0a7bdf5a497)**
+Download the **[UniFlow-RS checkpoint](https://osf.io/jp4vy/overview?view_only=a6c0fdba8fa446049063c0a7bdf5a497)**
 and save `uniflow_rs.pt` under `checkpoints/`.
 
-Place the base transformer, autoencoder, text encoder, and anonymous adapter
+Place the base transformer, autoencoder, text encoder, and UniFlow-RS adapter
 in the following locations:
 
 ```text
