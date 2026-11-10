@@ -25,12 +25,6 @@ batch size, and GPU count fixed when comparing repeated runs.
 
 Place the released adapter at `checkpoints/uniflow_rs.pt`.
 
-Expected SHA-256:
-
-```text
-26d097a9567f55636f8c1fef17c94ce16be13befdc12b5f384b983840a136dac
-```
-
 The evaluator loads the adapter into the base transformer and uses the frozen
 pretrained VAE. The adapter contains model weights, not optimizer or scheduler
 state.
