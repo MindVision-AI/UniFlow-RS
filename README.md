@@ -1,6 +1,6 @@
 <h1 align="center">UniFlow-RS</h1>
 
-<h3 align="center">Unifying Heterogeneous Remote Sensing Tasks<br>with a Shared Generative Prediction Process</h3>
+<h3 align="center">Unified Generative Prediction<br>for Heterogeneous Remote-Sensing Tasks</h3>
 
 <p align="center">
   <a href="https://openreview.net/profile?id=~Jianlong_He1">Jianlong He</a><sup>1</sup>,
@@ -16,6 +16,7 @@
 </p>
 
 <p align="center">
+  <a href="https://arxiv.org/abs/2611.14281"><b>arXiv</b></a> ·
   <a href="https://elaxegan.github.io/uniflow-rs/"><b>Project Page</b></a>
 </p>
 
@@ -169,6 +170,22 @@ and metrics are coordinated by `uniflow_rs/evaluation/` and
 `uniflow_rs/task_runtime.py`. Training starts in `uniflow_rs/training/engine.py`;
 TMAS is implemented in `uniflow_rs/training/tmas.py` and is not an extra inference
 network layer.
+
+## Citation
+
+```bibtex
+@misc{he2026uniflowrs,
+  title={UniFlow-RS: Unified Generative Prediction for
+         Heterogeneous Remote-Sensing Tasks},
+  author={He, Jianlong and Liao, Liang and Xiao, Jing and
+          Chen, Chaofeng and Xia, Gui-Song},
+  year={2026},
+  eprint={2611.14281},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2611.14281}
+}
+```
 
 ## License
 
