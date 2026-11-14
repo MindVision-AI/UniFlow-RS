@@ -58,7 +58,7 @@ for evaluation settings and commands.
 
 ## Models
 
-Download the **[UniFlow-RS checkpoint](https://huggingface.co/elaxEgan/UniFlow-RS)**
+Download the **[UniFlow-RS checkpoint (Hugging Face)](https://huggingface.co/elaxEgan/UniFlow-RS)**
 and save `uniflow_rs.pt` under `checkpoints/`.
 
 Place the base transformer, autoencoder, text encoder, and UniFlow-RS adapter
