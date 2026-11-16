@@ -1,4 +1,4 @@
-UniFlow-RS anonymous source-isolated release
+UniFlow-RS
 
 The UniFlow-RS-specific training, task adaptation, target construction,
 evaluation, and checkpoint-compatibility code in this distribution is released
