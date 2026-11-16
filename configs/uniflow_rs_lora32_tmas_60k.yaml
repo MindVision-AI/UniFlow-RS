@@ -1,7 +1,7 @@
 release_metadata:
   role: manuscript_declared_training_recipe
   warning: Fixed-budget training without validation or best-checkpoint selection.
-    Use the final scheduled checkpoint. This is not checkpoint provenance.
+    Use the final scheduled checkpoint.
   global_batch_size: 32
   reference_hardware: 4 x NVIDIA RTX 4090
 data:
