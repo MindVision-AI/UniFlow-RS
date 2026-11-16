@@ -1,8 +1,5 @@
 # Source provenance
 
-This anonymous release is intentionally restricted to the final paper
-backbone and contains no legacy FLUX.1 execution path.
-
 ## Upstream Apache-2.0 source
 
 The files below originate from the official Black Forest Labs FLUX.2
@@ -33,17 +30,6 @@ All code outside the vendored directory implements the paper method or its
 benchmark interface: the three-stream adapter, shared LoRA, source-state
 construction, structured visual targets, TMAS, data preparation, metrics,
 checkpoint validation, and prediction export.
-
-The released checkpoint uses the sanitized identifiers
-`uniflow_rs_lora_v2` and
-`uniflow-rs-flux2-klein-base-4b-multitask`. Only metadata was renamed; LoRA
-tensors and parameter keys are unchanged.
-
-## Excluded source
-
-The package excludes all unused legacy backbone implementations, text
-conditioners, model loaders, and sampling helpers. It does not require another
-research repository at runtime.
 
 ## External assets
 
