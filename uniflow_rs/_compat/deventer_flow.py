@@ -85,7 +85,7 @@ def encode_prompt_bank(
     text_backend = str(text_backend).casefold()
     if text_backend != "qwen3":
         raise ValueError(
-            "The source-isolated release supports only text_backend='qwen3'"
+            "UniFlow-RS supports only text_backend='qwen3'"
         )
     qwen = (
         load_qwen3_embedder(
