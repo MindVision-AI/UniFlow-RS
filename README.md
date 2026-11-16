@@ -142,8 +142,7 @@ bash scripts/eval.sh all checkpoints/uniflow_rs.pt outputs/all_benchmarks
 ```
 
 Leave `METRICS_ONLY` unset to export images. Keep the process count and batch
-size fixed when checking numerical reproducibility; identical results across
-different settings have not been established.
+size fixed when comparing repeated runs.
 
 Results include `metrics_summary.json`, `per_dataset_metrics.json`,
 per-dataset JSON files, and task-specific `metrics.json` files.
@@ -154,8 +153,7 @@ predictions, and comparison panels as applicable to each task.
 
 Start with [`uniflow_rs/model.py`](uniflow_rs/model.py): `UniFlowRS` assembles
 the frozen VAE, shared FLUX.2 + LoRA transformer, and text conditions. Evaluation
-uses this facade for checkpoint loading and prediction, while retaining the
-original component names and computations.
+uses this facade for checkpoint loading and prediction.
 
 ```text
 Image(s) + prompt
@@ -168,8 +166,7 @@ Image(s) + prompt
 Dataset preprocessing lives in `uniflow_rs/data/`; evaluation, task recovery,
 and metrics are coordinated by `uniflow_rs/evaluation/` and
 `uniflow_rs/task_runtime.py`. Training starts in `uniflow_rs/training/engine.py`;
-TMAS is implemented in `uniflow_rs/training/tmas.py` and is not an extra inference
-network layer.
+TMAS handles training-time timestep sampling in `uniflow_rs/training/tmas.py`.
 
 ## Citation
 
