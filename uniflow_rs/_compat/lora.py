@@ -168,7 +168,7 @@ def load_lora_checkpoint(
         raise ValueError("The FLUX.2 checkpoint already uses the final three-stream condition layout")
     checkpoint = checkpoint_state or torch.load(Path(path), map_location="cpu", weights_only=False)
     if checkpoint.get("format") not in CHECKPOINT_FORMATS:
-        raise ValueError("Use the anonymized UniFlow-RS checkpoint supplied with this release")
+        raise ValueError("Unsupported checkpoint format; use a UniFlow-RS LoRA checkpoint")
     if expected_base_model is not None and checkpoint.get("base_model") != expected_base_model:
         raise ValueError("Checkpoint base-model metadata does not match the configured FLUX.2 model")
     if expected_model_variant is not None and checkpoint.get("model_variant") != expected_model_variant:
