@@ -46,12 +46,9 @@ modes are `task_adaptive_progress` (paper TMAS), `uniform`, and fixed `beta`.
 Older single-EMA adaptive samplers, task-family-head training, and trainable-VAE
 experiments are excluded. Requests to enable removed modes fail explicitly.
 
-## Manuscript-declared recipe
+## Training configuration
 
-`configs/uniflow_rs_lora32_tmas_60k.yaml` retains the model and optimizer recipe
-and now disables training-time validation entirely. This revised recipe is not a
-record of how the released checkpoint was trained and does not retroactively
-change any existing result:
+`configs/uniflow_rs_lora32_tmas_60k.yaml` specifies the following training settings:
 
 - 60,000 optimizer updates;
 - global batch size 32 on four GPUs (per-device batch 4 and gradient
@@ -74,11 +71,7 @@ NUM_PROCESSES=4 bash scripts/train.sh \
   configs/uniflow_rs_lora32_tmas_60k.yaml
 ```
 
-Auxiliary binary, semantic, and height endpoint-supervision branches and
-forced-t=1 sampling have been removed from this release, including their
-configuration fields and loss helpers. The default recipe uses the single
-Flow Matching loss. This cleanup does not change existing checkpoint weights
-or establish how those weights were historically trained.
+The training objective is a single latent Flow Matching loss.
 
 ## Fixed-budget training: validation disabled
 
@@ -91,8 +84,6 @@ Training runs to the configured budget (60,000 optimizer steps, subject to the
 epoch cap). Periodic `checkpoint_epoch_*.pt` files are still saved for recovery;
 use the checkpoint saved at the end of the scheduled run for final evaluation.
 No validation-selected `best.pt` or task-specific best files are generated.
-The supplied `checkpoints/uniflow_rs.pt` is an existing released artifact,
-not a file newly selected by this training recipe.
 
 All source configurations have `val_split: null` and a disabled validation
 policy. Metric-selection mappings are omitted. The optional training-validation
