@@ -1,4 +1,4 @@
-"""FLUX.2-only backbone assembly for the source-isolated release."""
+"""FLUX.2 backbone assembly for UniFlow-RS."""
 
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ def backbone_name(cfg: dict[str, Any]) -> str:
     value = aliases.get(raw, raw)
     if value != FLUX2_BACKBONE:
         raise ValueError(
-            "The source-isolated release supports only the paper backbone "
+            "UniFlow-RS supports only the backbone "
             f"{FLUX2_BACKBONE!r}; got {raw!r}."
         )
     return value
@@ -78,7 +78,7 @@ def resolve_backbone(
         False,
     ) or cfg.get("vae", {}).get("decoder_checkpoint") not in (None, "", False):
         raise ValueError(
-            "This reviewer release uses the frozen pretrained VAE; adapted VAE checkpoints are not supported"
+            "UniFlow-RS uses the frozen pretrained VAE; adapted VAE checkpoints are not supported"
         )
     files = resolve_flux2_files(
         root_model_dir=model_root,
