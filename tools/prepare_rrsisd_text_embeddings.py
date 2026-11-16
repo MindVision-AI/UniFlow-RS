@@ -302,7 +302,7 @@ def main() -> None:
 
     if backend != "qwen3":
         raise RuntimeError(
-            "This source-isolated FLUX.2 release supports only Qwen3 text "
+            "UniFlow-RS supports only Qwen3 text "
             f"conditioning; resolved backend={backend!r}."
         )
     _prepare_qwen_cache(
