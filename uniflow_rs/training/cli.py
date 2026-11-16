@@ -133,7 +133,7 @@ def validate_method_config(cfg: dict) -> None:
     training = cfg.get("training", {})
     if training.get("validation_enabled", False) or training.get("validation_primary_metrics") or training.get("validation_dataset_metrics"):
         raise ValueError(
-            "This reviewer release uses fixed-budget training without validation or best-checkpoint selection; run evaluate.py after training"
+            "UniFlow-RS uses fixed-budget training without validation or best-checkpoint selection; run evaluate.py after training"
         )
     if (cfg.get("model", {}).get("task_family_heads") or {}).get("enabled", False):
         raise ValueError(
