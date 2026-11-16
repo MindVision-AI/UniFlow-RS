@@ -1,3 +1,3 @@
-"""Anonymous training and evaluation implementation for UniFlow-RS."""
+"""Training and evaluation implementation for UniFlow-RS."""
 
 __all__ = []
