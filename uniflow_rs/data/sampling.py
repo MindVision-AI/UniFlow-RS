@@ -72,13 +72,10 @@ class SourceTaggedDataset(Dataset):
 
 
 class PairPreservingConcatDataset(ConcatDataset):
-    """Concatenate splits without breaking registered paired batches.
+    """Concatenate datasets while keeping paired RGB/SAR views together.
 
-    PyTorch's ordinary :class:`ConcatDataset` only supports integer lookup.
-    That silently bypasses ``paired_batch_indices`` on child datasets, which
-    would separate co-registered RGB/SAR views after combining train and test
-    splits.  This wrapper chooses one physical split per microbatch and keeps
-    the child's structured indices intact.
+    Each microbatch draws from one child dataset. Structured indices are
+    forwarded to that child through its ``paired_batch_indices`` interface.
     """
 
     _INDEX_TAG = "__pair_preserving_concat__"

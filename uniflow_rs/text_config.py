@@ -30,11 +30,7 @@ def resolve_text_model(cfg: dict, text_model_dir: str | Path | None = None) -> s
 
 
 def prompt_cache_path(cfg: dict, text_model_dir: str | Path | None = None) -> Path:
-    """Hash the effective encoder as well as prompts and sequence length.
-
-    v2 deliberately does not reuse caches created when the CLI override was
-    ignored. This is a cache-key change, not a text-conditioning change.
-    """
+    """Build a cache path from encoder selection, prompts, length, and version."""
     identity = json.dumps(
         {
             "cache_version": 2,

@@ -129,7 +129,7 @@ def _resolved_optional_path(
 
 
 def validate_method_config(cfg: dict) -> None:
-    """Reject removed experimental modes before allocating models or GPUs."""
+    """Validate supported training settings before allocating models or GPUs."""
     training = cfg.get("training", {})
     if training.get("validation_enabled", False) or training.get("validation_primary_metrics") or training.get("validation_dataset_metrics"):
         raise ValueError(

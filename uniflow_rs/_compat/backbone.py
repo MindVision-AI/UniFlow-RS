@@ -106,7 +106,7 @@ def load_backbone_autoencoder(
     runtime: BackboneRuntime,
     device: str | torch.device,
 ):
-    """Load the unchanged pretrained VAE used by the released adapter."""
+    """Load the pretrained FLUX.2 VAE."""
     return load_flux2_autoencoder(runtime.files.autoencoder, device=device)
 
 

@@ -53,9 +53,8 @@ ALL_TASKS = (
 )
 
 
-# Paper-facing task families used only to group TMAS statistics. The internal
-# ``sar_*`` identities remain unchanged everywhere else: they still select
-# their existing datasets, prompts, losses, metrics, and sampling weights.
+# Canonical task families group TMAS statistics. Internal ``sar_*`` task IDs
+# select modality-specific datasets, prompts, metrics, and sampling weights.
 CANONICAL_TASK_FAMILY = {
     BUILDING_TASK: BUILDING_TASK,
     SAR_BUILDING_TASK: BUILDING_TASK,

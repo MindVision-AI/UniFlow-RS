@@ -92,8 +92,7 @@ def decoded_rgb_to_height(
         bounded = decoded + (bounded - decoded).detach()
     codec = str(height_codec).casefold()
     if codec == "linear":
-        # Preserve the original operation order for bitwise-compatible
-        # Potsdam checkpoints and exact zero-loss round-trip tests.
+        # Average the RGB channels and map [-1, 1] to [0, maximum] meters.
         return bounded.mean(dim=1, keepdim=True).add(1.0).mul(0.5 * maximum)
     if codec == "log1p":
         normalized = bounded.mean(dim=1, keepdim=True).add(1.0).mul(0.5)

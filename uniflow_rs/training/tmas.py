@@ -123,8 +123,8 @@ def batch_task_modality_groups(
 class ProgressAwareTaskAdaptiveTimestepSampler:
     """Canonical task/modality allocation driven by difficulty and progress.
 
-    All state is kept on CPU in float64 and is updated from the same
-    distributed per-bin loss aggregates as the original sampler.
+    State is stored on CPU in float64 and updated from distributed per-bin
+    loss aggregates.
     """
 
     def __init__(

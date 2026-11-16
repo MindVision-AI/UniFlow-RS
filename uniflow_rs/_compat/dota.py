@@ -1,8 +1,4 @@
-"""Shared oriented-detection implementation used by the DIOR-R adapter.
-
-Internal DOTA-derived names are retained to avoid restructuring the dataset
-base and geometry routines required by DIOR-R.
-"""
+"""DOTA-derived dataset and geometry utilities used by the DIOR-R adapter."""
 
 from __future__ import annotations
 

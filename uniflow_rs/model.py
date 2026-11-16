@@ -7,11 +7,10 @@ Architecture (the same transformer and VAE serve every task):
     target latent -> frozen VAE decoder -> structured RGB target
     structured target -> deterministic task recovery -> native prediction
 
-This facade assembles the existing implementation, not a new network. It is
-deliberately NOT an nn.Module: the transformer remains the checkpoint loading
-target, so no extra parameter prefix or module hierarchy is introduced.
-Training-time TMAS lives in training/tmas.py. Dataset transforms, task recovery,
-metrics, random-seed scopes and autocast remain in their existing modules.
+UniFlowRS groups the model components in a dataclass. Checkpoints are loaded
+into the transformer. Training-time TMAS lives in training/tmas.py; dataset
+transforms, task recovery, and metrics are handled by the data and evaluation
+modules.
 """
 
 from __future__ import annotations
@@ -39,11 +38,11 @@ from uniflow_rs.text_conditions import load_prompt_conditions
 
 @dataclass
 class UniFlowRS:
-    """Shared components, with the original parameter objects kept intact.
+    """Shared transformer, VAE, and text conditions.
 
     Prediction methods expect preprocessed image tensors and encoded text.
-    The caller supplies the same task source/conditioning options, inference
-    settings, no_grad and autocast context as the original evaluation path.
+    The caller supplies task source/conditioning options and inference
+    settings, and manages the no_grad and autocast contexts.
     """
 
     transformer: Any
@@ -61,11 +60,10 @@ class UniFlowRS:
         flux_model_dir: str | Path | None = None,
         text_model_dir: str | Path | None = None,
     ) -> UniFlowRS:
-        """Load frozen components and the adapter in the original order.
+        """Load the pretrained components, text conditions, and LoRA adapter.
 
-        CLI overrides are resolved by the evaluation entry point. Prompt
-        loading retains its existing encoder/cache behavior. The adapter
-        loader and its model-identity checks are used without modification.
+        The evaluation entry point resolves CLI overrides. The adapter loader
+        checks the checkpoint's base-model and model-variant identifiers.
         """
         with accelerator.main_process_first():
             backbone = resolve_backbone(cfg, root_model_dir=flux_model_dir)
@@ -103,22 +101,20 @@ class UniFlowRS:
     def predict_target(self, **inputs):
         """Encode images, construct source, integrate flow, decode RGB target.
 
-        The unchanged predict_multitask_decoded implementation owns all four
-        stages, including the Beta time grid and Euler updates. No alternate
-        solver or extra encode/decode operation is introduced here.
+        Flow integration uses a Beta time grid and Euler updates.
         """
         return predict_multitask_decoded(
             transformer=self.transformer, autoencoder=self.autoencoder, **inputs,
         )
 
     def predict_probability(self, **inputs):
-        """Run the same shared process and recover binary probabilities."""
+        """Predict a structured target and recover binary probabilities."""
         return predict_multitask_probability(
             transformer=self.transformer, autoencoder=self.autoencoder, **inputs,
         )
 
     def predict_openearthmap(self, **inputs):
-        """Preserve native-size sliding windows and palette recovery."""
+        """Predict OpenEarthMap labels with sliding windows and palette recovery."""
         from uniflow_rs.task_runtime import predict_sar_semantic_output
 
         return predict_sar_semantic_output(

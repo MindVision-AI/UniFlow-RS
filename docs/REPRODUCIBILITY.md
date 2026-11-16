@@ -67,5 +67,3 @@ Leave `METRICS_ONLY` unset to also save predictions and comparison panels.
 - Inputs, ground truth, probabilities, predictions, and comparison panels
   when image export is enabled, as applicable to each task.
 
-Metrics are computed from model predictions and dataset labels, not from
-exported visualization images.
